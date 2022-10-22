@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Install ansible-core, kubernetes & jsonpatch Python packages
-pip install --user ansible-core kubernetes jsonpatch
+# Install repo requirements from requirements.txt file
+pip install --user -r requirements.txt
 
 # Install kubernetes.core collection
 ansible-galaxy collection install kubernetes.core

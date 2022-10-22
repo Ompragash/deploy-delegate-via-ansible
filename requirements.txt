@@ -1,0 +1,4 @@
+###### Repo Requirements without Version Specifiers ######
+ansible-core
+kubernetes
+jsonpatch
