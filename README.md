@@ -3,15 +3,23 @@
 This repository contains Ansible playbooks that'll create Delegate Token and download the Delegate K8S Manifest file by making API calls to Harness NG REST API. You can also use the existing Delegate Token to download the manifest file.
 
 ## Requirements
-- ansible-core <= 2.12.0
+- ansible-core >= 2.12.0
+- kubernetes >= 12.0.0
+- jsonpatch
 ```bash
-pip3 install ansible-core
+pip3 install --user ansible-core kubernetes jsonpatch
+```
+
+- `kubernetes.core` Collection
+```bash
+ansible-galaxy collection install kubernetes.core
 ```
 
 - Create Harness API Key and PAT (Click [here](https://docs.harness.io/article/f0aqiv3td7-api-quickstart#step_1_create_a_harness_api_key_and_pat) for details)
 
 ## Dependencies
 - Python 3.9.0 or higher
+- Git
 
 ## Repo Structure
 - tasks/
@@ -22,9 +30,15 @@ pip3 install ansible-core
     - config.yml - Required variables to authenticate and interact with the Harness NG API endpoint
 
 ## Usage
-1. Use your favorite editor to open [vars/config.yml](vars/config.yml) and add Harness API PAT, Account Id, Org ID, Project ID, Delegate Token Name & Delegate Name values to respective variables.
+1. Clone this repo:
+```bash
+git clone https://github.com/Ompragash/deploy-delegate-via-ansible.git
+cd deploy-delegate-via-ansible
+```
 
-2. Time for ***AUTOMATION!!⚡️***. Just run the below command:
+2. Use your favorite editor to open [vars/config.yml](vars/config.yml) and add Harness API PAT, Account Id, Org ID, Project ID, Delegate Token Name & Delegate Name values to respective variables.
+
+3. Time for ***AUTOMATION!!⚡️***. Just run the below command:
 ```bash
 ansible-playbook main.yml
 ```
@@ -35,7 +49,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=7    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-3. Yayy! _Harness Delegate K8S Manifest_ file is downloaded and available in `manifests/harness-delegate.yml`.
+4. Yayy! _Harness Delegate K8S Manifest_ file is downloaded and available in `manifests/harness-delegate.yml`.
 
 ### Additional Details
 The playbooks in this repo are designed dynamically so if you don't want to create a new Delegate Token and use the existing one, then all you need is to get the delegate token id from Harness NG UI, add it to `token_name:` variable in [vars/config.yml](vars/config.yml) and run the below command:
